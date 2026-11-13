@@ -1,0 +1,321 @@
+%YAML 1.1
+%TAG !h! tag:helixengine,2026:
+--- !h!1 &100
+GameObject:
+  m_Component:
+  - component: {fileID: 101}
+  - component: {fileID: 102}
+  m_Name: CsActive
+  m_IsActive: 1
+--- !h!4 &101
+Transform:
+  m_GameObject: {fileID: 100}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &102
+GameBehaviour:
+  m_GameObject: {fileID: 100}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 9edd797104cc2f5ce5637eabb99eda8c, type: 3}
+--- !h!1 &110
+GameObject:
+  m_Component:
+  - component: {fileID: 111}
+  - component: {fileID: 112}
+  m_Name: CsInactive
+  m_IsActive: 0
+--- !h!4 &111
+Transform:
+  m_GameObject: {fileID: 110}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &112
+GameBehaviour:
+  m_GameObject: {fileID: 110}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 9edd797104cc2f5ce5637eabb99eda8c, type: 3}
+--- !h!1 &120
+GameObject:
+  m_Component:
+  - component: {fileID: 121}
+  - component: {fileID: 122}
+  m_Name: CsDisabled
+  m_IsActive: 1
+--- !h!4 &121
+Transform:
+  m_GameObject: {fileID: 120}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &122
+GameBehaviour:
+  m_GameObject: {fileID: 120}
+  m_Enabled: 0
+  m_Script: {fileID: 11500000, guid: 9edd797104cc2f5ce5637eabb99eda8c, type: 3}
+--- !h!1 &130
+GameObject:
+  m_Component:
+  - component: {fileID: 131}
+  - component: {fileID: 132}
+  m_Name: CsDestroyed
+  m_IsActive: 1
+--- !h!4 &131
+Transform:
+  m_GameObject: {fileID: 130}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &132
+GameBehaviour:
+  m_GameObject: {fileID: 130}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 9edd797104cc2f5ce5637eabb99eda8c, type: 3}
+--- !h!1 &140
+GameObject:
+  m_Component:
+  - component: {fileID: 141}
+  - component: {fileID: 142}
+  m_Name: CsImmediate
+  m_IsActive: 1
+--- !h!4 &141
+Transform:
+  m_GameObject: {fileID: 140}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &142
+GameBehaviour:
+  m_GameObject: {fileID: 140}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 9edd797104cc2f5ce5637eabb99eda8c, type: 3}
+--- !h!1 &150
+GameObject:
+  m_Component:
+  - component: {fileID: 151}
+  - component: {fileID: 152}
+  - component: {fileID: 153}
+  m_Name: CsOrder
+  m_IsActive: 1
+--- !h!4 &151
+Transform:
+  m_GameObject: {fileID: 150}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &152
+GameBehaviour:
+  m_GameObject: {fileID: 150}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: c801244508e8392b62d3fc057671ed25, type: 3}
+--- !h!114 &153
+GameBehaviour:
+  m_GameObject: {fileID: 150}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 2bc70c2984f67a18b3c85486a3e6f227, type: 3}
+--- !h!1 &160
+GameObject:
+  m_Component:
+  - component: {fileID: 161}
+  - component: {fileID: 162}
+  m_Name: CsLifecycle
+  m_IsActive: 1
+--- !h!4 &161
+Transform:
+  m_GameObject: {fileID: 160}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &162
+GameBehaviour:
+  m_GameObject: {fileID: 160}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 17db1de414bdaa961babd3f85da1f314, type: 3}
+  inactive: {fileID: 110}
+  disabled: {fileID: 122}
+  destroyed: {fileID: 132}
+  immediate: {fileID: 142}
+--- !h!1 &170
+GameObject:
+  m_Component:
+  - component: {fileID: 171}
+  - component: {fileID: 172}
+  m_Name: CsNull
+  m_IsActive: 1
+--- !h!4 &171
+Transform:
+  m_GameObject: {fileID: 170}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &172
+GameBehaviour:
+  m_GameObject: {fileID: 170}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: cee1d5f2d87e8699a52820a90e646ff1, type: 3}
+  unset: {fileID: 0}
+--- !h!1 &180
+GameObject:
+  m_Component:
+  - component: {fileID: 181}
+  - component: {fileID: 182}
+  m_Name: CppActive
+  m_IsActive: 1
+--- !h!4 &181
+Transform:
+  m_GameObject: {fileID: 180}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &182
+GameBehaviour:
+  m_GameObject: {fileID: 180}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 00a3750625ba204efa594c80ab212d32, type: 3}
+--- !h!1 &190
+GameObject:
+  m_Component:
+  - component: {fileID: 191}
+  - component: {fileID: 192}
+  m_Name: CppInactive
+  m_IsActive: 0
+--- !h!4 &191
+Transform:
+  m_GameObject: {fileID: 190}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &192
+GameBehaviour:
+  m_GameObject: {fileID: 190}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 00a3750625ba204efa594c80ab212d32, type: 3}
+--- !h!1 &200
+GameObject:
+  m_Component:
+  - component: {fileID: 201}
+  - component: {fileID: 202}
+  m_Name: CppDisabled
+  m_IsActive: 1
+--- !h!4 &201
+Transform:
+  m_GameObject: {fileID: 200}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &202
+GameBehaviour:
+  m_GameObject: {fileID: 200}
+  m_Enabled: 0
+  m_Script: {fileID: 11500000, guid: 00a3750625ba204efa594c80ab212d32, type: 3}
+--- !h!1 &210
+GameObject:
+  m_Component:
+  - component: {fileID: 211}
+  - component: {fileID: 212}
+  m_Name: CppDestroyed
+  m_IsActive: 1
+--- !h!4 &211
+Transform:
+  m_GameObject: {fileID: 210}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &212
+GameBehaviour:
+  m_GameObject: {fileID: 210}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 00a3750625ba204efa594c80ab212d32, type: 3}
+--- !h!1 &220
+GameObject:
+  m_Component:
+  - component: {fileID: 221}
+  - component: {fileID: 222}
+  m_Name: CppImmediate
+  m_IsActive: 1
+--- !h!4 &221
+Transform:
+  m_GameObject: {fileID: 220}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &222
+GameBehaviour:
+  m_GameObject: {fileID: 220}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 00a3750625ba204efa594c80ab212d32, type: 3}
+--- !h!1 &230
+GameObject:
+  m_Component:
+  - component: {fileID: 231}
+  - component: {fileID: 232}
+  - component: {fileID: 233}
+  m_Name: CppOrder
+  m_IsActive: 1
+--- !h!4 &231
+Transform:
+  m_GameObject: {fileID: 230}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &232
+GameBehaviour:
+  m_GameObject: {fileID: 230}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 7d4f286b52c791bb99affa03e5ac2fc7, type: 3}
+--- !h!114 &233
+GameBehaviour:
+  m_GameObject: {fileID: 230}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 5d27c79b41ff4ea1f2b22bfecb8a7bab, type: 3}
+--- !h!1 &240
+GameObject:
+  m_Component:
+  - component: {fileID: 241}
+  - component: {fileID: 242}
+  m_Name: CppLifecycle
+  m_IsActive: 1
+--- !h!4 &241
+Transform:
+  m_GameObject: {fileID: 240}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &242
+GameBehaviour:
+  m_GameObject: {fileID: 240}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 70cae0dde06189ba964f23c67f860265, type: 3}
+  inactive: {fileID: 190}
+  disabled: {fileID: 200}
+  destroyed: {fileID: 210}
+  immediate: {fileID: 220}
+--- !h!1 &250
+GameObject:
+  m_Component:
+  - component: {fileID: 251}
+  - component: {fileID: 252}
+  m_Name: CppNull
+  m_IsActive: 1
+--- !h!4 &251
+Transform:
+  m_GameObject: {fileID: 250}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &252
+GameBehaviour:
+  m_GameObject: {fileID: 250}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: 3a8f77e6967285412bdb3847d1db5c86, type: 3}
+  unset: {fileID: 0}
+--- !h!1 &260
+GameObject:
+  m_Component:
+  - component: {fileID: 261}
+  - component: {fileID: 262}
+  - component: {fileID: 263}
+  m_Name: Cross
+  m_IsActive: 1
+--- !h!4 &261
+Transform:
+  m_GameObject: {fileID: 260}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !h!114 &262
+GameBehaviour:
+  m_GameObject: {fileID: 260}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: a800c1594820b7cca8f1b83bb6068c80, type: 3}
+  partner: {fileID: 263}
+--- !h!114 &263
+GameBehaviour:
+  m_GameObject: {fileID: 260}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: bcbca9c7864d4287ba63c33d45368920, type: 3}
+  partner: {fileID: 262}

@@ -1,0 +1,14 @@
+# The conformance data folder: every file, its guid and its path (Tools/GenerateData.py).
+9edd797104cc2f5ce5637eabb99eda8c Scripts/Probe.asset
+c801244508e8392b62d3fc057671ed25 Scripts/Early.asset
+2bc70c2984f67a18b3c85486a3e6f227 Scripts/Late.asset
+17db1de414bdaa961babd3f85da1f314 Scripts/LifecycleSuite.asset
+cee1d5f2d87e8699a52820a90e646ff1 Scripts/NullSuite.asset
+a800c1594820b7cca8f1b83bb6068c80 Scripts/CrossCs.asset
+00a3750625ba204efa594c80ab212d32 Scripts/CppProbe.asset
+7d4f286b52c791bb99affa03e5ac2fc7 Scripts/CppEarly.asset
+5d27c79b41ff4ea1f2b22bfecb8a7bab Scripts/CppLate.asset
+70cae0dde06189ba964f23c67f860265 Scripts/CppLifecycleSuite.asset
+3a8f77e6967285412bdb3847d1db5c86 Scripts/CppNullSuite.asset
+bcbca9c7864d4287ba63c33d45368920 Scripts/CrossCpp.asset
+bfd74b5dc08cb5839ce208e94311f020 Scenes/Conformance.helix

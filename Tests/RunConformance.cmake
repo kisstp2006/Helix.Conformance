@@ -1,0 +1,45 @@
+# Runs the player on the conformance data folder in batch mode without graphics and checks its log (cmake -P):
+#   -DPLAYER=<the player executable, or the web app's main.mjs with -DNODE=<node>> -DDATA=<data folder>
+#   -DEXPECTED=<Suites/Expected.txt> [-DRUNTIME=<.NET runtime starter>] [-DLOG=<log file of the desktop player>]
+# Every expected case must report ok, none FAIL, and the player must end with 0.
+cmake_minimum_required(VERSION 3.28)
+
+set(arguments -batchmode -nographics -frames 12)
+if(NODE)
+    # The web app in node: the data folder of the disk mounted as /Data.
+    set(command "${CMAKE_COMMAND}" -E env "HELIX_MOUNTS=${DATA}=/Data" "${NODE}" "${PLAYER}" ${arguments} -dataFolder /Data)
+else()
+    set(environment "")
+    if(RUNTIME)
+        set(environment "HELIX_DOTNET_RUNTIME=${RUNTIME}")
+    endif()
+    file(REMOVE "${LOG}")
+    set(command "${CMAKE_COMMAND}" -E env ${environment} "${PLAYER}" ${arguments} -dataFolder "${DATA}" -logFile "${LOG}")
+endif()
+execute_process(COMMAND ${command} RESULT_VARIABLE code OUTPUT_VARIABLE output ERROR_VARIABLE errors TIMEOUT 300)
+if(LOG AND EXISTS "${LOG}")
+    file(READ "${LOG}" log)
+else()
+    set(log "${output}\n${errors}")
+endif()
+
+file(STRINGS "${EXPECTED}" cases REGEX "^[^#]")
+set(missing "")
+set(passed 0)
+foreach(c IN LISTS cases)
+    string(FIND "${log}" "conformance: ${c} ok" at)
+    if(at EQUAL -1)
+        list(APPEND missing "${c}")
+    else()
+        math(EXPR passed "${passed} + 1")
+    endif()
+endforeach()
+string(REGEX MATCHALL "conformance: [^\n]* FAIL[^\n]*" failures "${log}")
+list(LENGTH cases total)
+if(NOT code EQUAL 0 OR missing OR failures)
+    string(REPLACE ";" "\n  " missing_text "${missing}")
+    string(REPLACE ";" "\n  " failure_text "${failures}")
+    message(FATAL_ERROR "Conformance: ${passed} of ${total} cases ok, the player ended with ${code}.\nFailed:\n  ${failure_text}\n"
+                        "Not reported:\n  ${missing_text}\nThe log:\n${log}")
+endif()
+message(STATUS "Conformance: ${passed} of ${total} cases ok")

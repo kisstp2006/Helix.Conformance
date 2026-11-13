@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The C# conformance suites: the game assembly of the conformance data folder's Managed/. -->
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net11.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Message methods are found by reflection; serialized fields are set by the scene. -->
+    <NoWarn>IDE0051;CS0169;CS0649</NoWarn>
+    <AssemblyName>ConformanceSuites</AssemblyName>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HelixEngine.CoreModule">
+      <HintPath>$(HelixCoreModule)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Helix.Scripting.Runtime">
+      <HintPath>$(HelixScriptingRuntime)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

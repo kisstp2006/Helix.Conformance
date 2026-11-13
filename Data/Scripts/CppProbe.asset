@@ -1,0 +1,9 @@
+%YAML 1.1
+%TAG !h! tag:helixengine,2026:
+--- !h!115 &11500000
+MonoScript:
+  m_Name: CppProbe
+  m_ExecutionOrder: 0
+  m_ClassName: CppProbe
+  m_Namespace: Conformance
+  m_AssemblyName: ConformanceModule
