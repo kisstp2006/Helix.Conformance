@@ -10,6 +10,16 @@ namespace Conformance
         void Awake() => baseAwake = true;
     }
 
+    /// <summary>A C# class deriving from the C++ module's CppShape: C++ calls its Area.</summary>
+    public class CsSquare : CppShape
+    {
+        readonly float m_Side;
+
+        public CsSquare(float side) : base("square") => m_Side = side;
+
+        public override float Area() => m_Side * m_Side;
+    }
+
     /// <summary>
     /// The C# half of the cross language suite, beside CrossCpp on one GameObject: its field refers to the C++ script
     /// from the scene file; SendMessage to C++ answered by C++ with SendMessage; C# disables and enables the C++ script
@@ -24,6 +34,7 @@ namespace Conformance
         int m_FromCpp = -1;
         int m_CppDisabled;
         int m_CppEnabled;
+        CsSquare m_Square;
 
         void AckFromCpp(int value) => m_Ack = value;
         void CppDisabled() => m_CppDisabled++;
@@ -50,10 +61,17 @@ namespace Conformance
                 Report.Case("cross.base-script-message", baseAwake);
                 partner.SendMessage("FromCs");
                 Report.Case("cross.sendmessage-both-ways", m_Ack == 42, m_Ack.ToString());
+                // The C++ script's own class through the module's C# bindings, and a C# class deriving from a C++ one.
+                Report.Case("cross.cpp-script-class-in-cs", GetComponent<CrossCpp>() != null && GetComponent<CrossCpp>() == partner);
+                m_Square = new CsSquare(3);
+                Report.Case("cross.derives-from-a-cpp-class", CppShape.Count() == 1 && CppShape.TotalArea() == 9f && m_Square.label == "square",
+                            CppShape.Count() + " " + CppShape.TotalArea());
             }
             else if (m_Updates == 2)
             {
                 Report.Case("cross.cpp-sent-a-value", m_FromCpp == 7, m_FromCpp.ToString());
+                // CrossCpp called the override in its second Update (before this one).
+                m_Square.Destroy();
                 int disabledBefore = m_CppDisabled, enabledBefore = m_CppEnabled;
                 partner.enabled = false;
                 Report.Case("cross.disable-cpp", m_CppDisabled == disabledBefore + 1 && !partner.enabled, m_CppDisabled.ToString());

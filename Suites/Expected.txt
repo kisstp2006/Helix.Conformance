@@ -22,6 +22,8 @@ cs.null.members-of-destroyed-throw
 cs.cross.field-refers-to-cpp
 cs.cross.base-script-message
 cs.cross.sendmessage-both-ways
+cs.cross.cpp-script-class-in-cs
+cs.cross.derives-from-a-cpp-class
 cs.cross.cpp-sent-a-value
 cs.cross.disable-cpp
 cs.cross.enable-cpp
@@ -45,5 +47,6 @@ cpp.null.find-skips-destroyed
 cpp.cross.field-refers-to-cs
 cpp.cross.base-script-message
 cpp.cross.sendmessage-both-ways
+cpp.cross.calls-a-cs-override
 cpp.cross.disabled-and-enabled-by-cs
 cpp.cross.disable-cs

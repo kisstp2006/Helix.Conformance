@@ -58,6 +58,53 @@ namespace Conformance
         return ::helix::engine::EntityIdToObject<::helix::engine::GameObject>(gameObject.GetEntityId());
     }
 
+    namespace
+    {
+        Array<CppShape*>& Shapes()
+        {
+            static Array<CppShape*> shapes;
+            return shapes;
+        }
+
+        ::helix::u64 gNextShape = 0;
+    }
+
+    CppShape::CppShape(StringView label) : label_(label), id_(++gNextShape) { Shapes().Push(this); }
+
+    CppShape::~CppShape()
+    {
+        ::helix::scripting::ReleaseWrapper(wrapper_);
+        Array<CppShape*>& shapes = Shapes();
+        for (::helix::usize i = 0; i < shapes.Size(); i++)
+            if (shapes[i] == this)
+            {
+                shapes.RemoveAt(i);
+                break;
+            }
+    }
+
+    void CppShape::Destroy() { delete this; }
+
+    ::helix::f32 CppShape::TotalArea()
+    {
+        ::helix::f32 sum = 0;
+        for (CppShape* s : Shapes())
+            sum += s->Area();
+        return sum;
+    }
+
+    i32 CppShape::Count() { return i32(Shapes().Size()); }
+
+    ::helix::scripting::TypeId CppShape::HelixType() const { return ::helix::scripting::TypeOf<CppShape>(); }
+
+    CppShape* CppShape::FromId(::helix::u64 id)
+    {
+        for (CppShape* s : Shapes())
+            if (s->Id() == id)
+                return s;
+        return nullptr;
+    }
+
     void CppProbe::Record(StringView message)
     {
         String owner = gameObject.Get().name;
@@ -175,6 +222,11 @@ namespace Conformance
             Case("cross.base-script-message", baseAwake);
             ::helix::engine::SendScriptMessage(Native(gameObject.Get()), "FromCpp", ::helix::scripting::Variant::From(i32(7)));
             Case("cross.sendmessage-both-ways", ack_);
+        }
+        else if (updates_ == 2)
+        {
+            // CrossCs made a CsSquare of side 3 in its first Update (a C# class deriving from CppShape).
+            Case("cross.calls-a-cs-override", CppShape::Count() == 1 && CppShape::TotalArea() == 9.0f, ::helix::Format("{} {}", CppShape::Count(), CppShape::TotalArea()));
         }
         else if (updates_ == 3)
         {

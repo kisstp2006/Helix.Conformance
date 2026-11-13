@@ -34,7 +34,7 @@ target_include_directories(helix_conformance_module PRIVATE "${suites_dir}/Cpp")
 helix_apply_options(helix_conformance_module)
 helix_bindgen(helix_conformance_module MODULE ConformanceModule NAMESPACE Conformance KIND NativeGame
               HEADERS "${suites_dir}/Cpp/ConformanceScripts.h" REFERENCES ${engine_references} REFERENCE_NAMESPACE HelixEngine
-              INCLUDE_ROOTS "${suites_dir}/Cpp" "${engine_source}")
+              INCLUDE_ROOTS "${suites_dir}/Cpp" "${engine_source}" CS_OUTPUT module_cs)
 
 # The C# suites: ConformanceSuites.dll (no "Helix." name: the player takes those for the engine's).
 set(conformance_artifacts "${CMAKE_CURRENT_BINARY_DIR}/Dotnet")
@@ -44,8 +44,9 @@ add_custom_command(
     OUTPUT "${suites_dll}"
     COMMAND "${HELIX_DOTNET}" build "${suites_dir}/CSharp/Helix.Conformance.Suites.csproj" -c Release --artifacts-path "${conformance_artifacts}"
             --nologo -v quiet "-p:HelixCoreModule=${HELIX_CORE_MODULE}" "-p:HelixScriptingRuntime=${HELIX_SCRIPTING_RUNTIME}"
-    DEPENDS ${suites_sources} "${HELIX_CORE_MODULE}"
-    COMMENT "Building the C# conformance suites")
+            "-p:HelixModuleBindings=${module_cs}"
+    DEPENDS ${suites_sources} "${HELIX_CORE_MODULE}" "${module_cs}"
+    COMMENT "Building the C# conformance suites (with the C++ module's C# bindings)")
 add_custom_target(helix_conformance_suites ALL DEPENDS "${suites_dll}")
 add_dependencies(helix_conformance_suites helix_core_module)
 

@@ -3,6 +3,8 @@
 #include <Helix/Core/Strings/Format.h>
 #include <Helix/Engine/Script/ScriptClass.h>
 #include <Helix/Engine/Script/ScriptRuntime.h>
+#include <Helix/Scripting/Bindings/Interop.h>
+#include <Helix/Scripting/Types/Type.h>
 #include <HelixEngine/HelixEngineApi.h>
 
 // The C++ conformance suites (the game module ConformanceModule): the same cases as the C# suites, on the C++ script
@@ -88,6 +90,35 @@ namespace Conformance
         ::HelixEngine::GameObject target_;
     };
 
+    // A class of the module C# classes derive from (not a script): C++ calls its virtual Area, which a C# class
+    // overrides. Its objects live until Destroy; C# reaches them through the module's C# bindings.
+    HX_CLASS(Root, Namespace = "Conformance")
+    class CppShape
+    {
+    public:
+        HX_FUNCTION(Constructor) explicit CppShape(StringView label);
+        virtual ~CppShape();
+        CppShape(const CppShape&) = delete;
+        CppShape& operator=(const CppShape&) = delete;
+
+        HX_PROPERTY() StringView label() const { return label_; }
+        HX_FUNCTION() virtual ::helix::f32 Area() const { return 0; }
+        HX_FUNCTION() void Destroy();
+        // The sum of every live shape's Area (C++ calling the C# overrides), and their count.
+        HX_FUNCTION() static ::helix::f32 TotalArea();
+        HX_FUNCTION() static i32 Count();
+
+        ::helix::u64 Id() const { return id_; }
+        ::helix::u64& Wrapper() { return wrapper_; }
+        virtual ::helix::scripting::TypeId HelixType() const;
+        static CppShape* FromId(::helix::u64 id);
+
+    private:
+        String label_;
+        ::helix::u64 id_ = 0;
+        ::helix::u64 wrapper_ = 0;
+    };
+
     // A C++ base script: its Awake is the message of scripts deriving from it.
     HX_CLASS(Namespace = "Conformance")
     class CppCrossBase : public ::HelixEngine::GameBehaviour
@@ -122,3 +153,13 @@ namespace Conformance
         i32 disables_ = 0;
     };
 }
+
+// Shapes cross to C# as their id, with their class's type as dynamic type.
+template <>
+struct helix::scripting::ObjectHandles<Conformance::CppShape>
+{
+    static u64 ToId(const Conformance::CppShape* shape) { return shape->Id(); }
+    static Conformance::CppShape* FromId(u64 id) { return Conformance::CppShape::FromId(id); }
+    static TypeId TypeOf(const Conformance::CppShape* shape) { return shape->HelixType(); }
+    static u64& WrapperOf(Conformance::CppShape* shape) { return shape->Wrapper(); }
+};

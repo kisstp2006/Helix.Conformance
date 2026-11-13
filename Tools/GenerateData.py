@@ -105,8 +105,9 @@ def main():
                "members-of-destroyed-throw"]
     null_cpp = ["destroy-keeps-the-object-for-the-frame", "destroyimmediate-at-once", "missing-component", "unset-field",
                 "destroyed-equals-null", "find-skips-destroyed"]
-    cross_cs = ["field-refers-to-cpp", "base-script-message", "sendmessage-both-ways", "cpp-sent-a-value", "disable-cpp", "enable-cpp"]
-    cross_cpp = ["field-refers-to-cs", "base-script-message", "sendmessage-both-ways", "disabled-and-enabled-by-cs", "disable-cs"]
+    cross_cs = ["field-refers-to-cpp", "base-script-message", "sendmessage-both-ways", "cpp-script-class-in-cs", "derives-from-a-cpp-class",
+                "cpp-sent-a-value", "disable-cpp", "enable-cpp"]
+    cross_cpp = ["field-refers-to-cs", "base-script-message", "sendmessage-both-ways", "calls-a-cs-override", "disabled-and-enabled-by-cs", "disable-cs"]
     cases = [f"cs.lifecycle.{c}" for c in lifecycle] + [f"cs.null.{c}" for c in null_cs] + [f"cs.cross.{c}" for c in cross_cs]
     cases += [f"cpp.lifecycle.{c}" for c in lifecycle] + [f"cpp.null.{c}" for c in null_cpp] + [f"cpp.cross.{c}" for c in cross_cpp]
     with open(os.path.join(ROOT, "Suites", "Expected.txt"), "w", encoding="utf-8", newline="\n") as f:

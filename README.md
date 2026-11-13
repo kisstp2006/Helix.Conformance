@@ -23,7 +23,9 @@ run by the player itself in batch mode without graphics.
   false; C# keeps the reference and its members throw MissingReferenceException; Find skips it; missing components
   and unset fields are null; destroying a component keeps its GameObject.
 - Across the languages, on one GameObject: each script's field refers to the other's from the scene file; SendMessage
-  both ways with values; each disables and enables the other and hears it; messages of base scripts.
+  both ways with values; each disables and enables the other and hears it; messages of base scripts; C# reaches the
+  C++ script through its own class and derives a class (`CsSquare`) from the module's C++ class `CppShape`, whose
+  override C++ calls. The C# suites compile the module's C# bindings (Helix.Bindgen's output for ConformanceModule).
 
 Each case logs `conformance: <cs|cpp>.<suite>.<case> ok` (or `FAIL` with what it saw). The tests run the player
 executable on Windows and Linux (with the hostfxr and the coreclr runtime starters) and the player's web app in node

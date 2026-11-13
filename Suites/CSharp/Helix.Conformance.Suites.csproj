@@ -12,6 +12,7 @@
     <AssemblyName>ConformanceSuites</AssemblyName>
     <InvariantGlobalization>true</InvariantGlobalization>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HelixEngine.CoreModule">
@@ -22,5 +23,9 @@
       <HintPath>$(HelixScriptingRuntime)</HintPath>
       <Private>false</Private>
     </Reference>
+  </ItemGroup>
+  <!-- The C# bindings of the C++ suites' module (Helix.Bindgen's output for ConformanceModule). -->
+  <ItemGroup Condition="'$(HelixModuleBindings)' != ''">
+    <Compile Include="$(HelixModuleBindings)" />
   </ItemGroup>
 </Project>
